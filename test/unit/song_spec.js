@@ -1,4 +1,4 @@
-//unit test
+//unit test - song
 /*jshint expr: true*/
 'use strict';
 
@@ -7,6 +7,7 @@ var expect = require('chai').expect;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var Song;
+
 
 describe('Song', function(){
 
@@ -32,6 +33,8 @@ describe('Song', function(){
     });
   });
 
+/* Constructor  */
+
   describe('new', function(){
     it('should create a new song object', function(){
       var obj = {};
@@ -42,6 +45,8 @@ describe('Song', function(){
       expect(song).to.be.instanceof(Song);
     });
   });
+
+/* Instance  */
 
   describe('#insert', function(){
     it('should insert a Song object into the DB', function(done){
@@ -63,7 +68,7 @@ describe('Song', function(){
     });
   });
 
-//FIND METHODS
+/* Find */
 
   describe('.findById', function(){
     it('should find an Song by its ID', function(done){

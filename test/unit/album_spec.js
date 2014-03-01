@@ -1,4 +1,4 @@
-//unit test
+//unit test - album
 /*jshint expr: true*/
 'use strict';
 
@@ -7,6 +7,7 @@ var expect = require('chai').expect;
 var exec = require('child_process').exec;
 var fs = require('fs');
 var Album;
+var Song;
 
 describe('Album', function(){
 
@@ -14,6 +15,7 @@ describe('Album', function(){
     var initMongo = require('../../app/lib/init-mongo');
     initMongo.db(function(){
       Album = require('../../app/models/album');
+      Song = require('../../app/models/song');
       done();
     });
   });
@@ -32,6 +34,11 @@ describe('Album', function(){
     });
   });
 
+/*
+  //Passing or un-needed tests (commented out for performance purposes)
+
+// Constructor
+
   describe('new', function(){
     it('should create a new Album object', function(){
       var obj = {};
@@ -43,6 +50,8 @@ describe('Album', function(){
       expect(album).to.be.instanceof(Album);
     });
   });
+
+// Instance
 
   describe('#addPhoto', function(){
     it('should add a photo to Album', function(){
@@ -57,7 +66,31 @@ describe('Album', function(){
       expect(album.photo).to.equal('/img/testpurplerain/photo.jpg');
     });
   });
+*/
 
+  describe('#addSong', function(){
+    it('should add a song to the songs property', function(){
+      var aObj = {};
+      var sObj = {};
+      aObj.name = 'test Purple Rain';
+      aObj.songs = [];
+      sObj.songs = [];
+      var album = new Album(aObj);
+      var song = new Song(sObj);
+      album.insert(function(){
+        song.insert(function(done){
+          var songId = song._id.toString();
+          album.addSong(songId);
+          expect(album.songs).to.have.length(1);
+          expect(album.songs[0]).to.be.equal(songId);
+          expect(album.songs[0].name).to.equal(song.name);
+          done();
+        });
+      });
+    });
+  });
+
+/*
   describe('#insert', function(){
     it('should insert a Album object into the DB', function(done){
       var obj = {};
@@ -79,7 +112,7 @@ describe('Album', function(){
     });
   });
 
-//FIND METHODS
+// Find
 
   describe('.findById', function(){
     it('should find an Album by its ID', function(done){
@@ -143,5 +176,6 @@ describe('Album', function(){
       });
     });
   });
+*/
 
 });

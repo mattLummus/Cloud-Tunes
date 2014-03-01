@@ -1,4 +1,4 @@
-//unit test
+//unit test - artist
 /*jshint expr: true*/
 'use strict';
 
@@ -45,6 +45,10 @@ describe('Artist', function(){
     });
   });
 
+/* Constructor */
+
+  //Passing or un-needed tests (commented out for performance purposes)
+/*
   describe('new', function(){
     it('should create a new Artist object', function(){
       expect(artist).to.be.instanceof(Artist);
@@ -66,8 +70,8 @@ describe('Artist', function(){
       done();
     });
   });
+*/
 
-  /*
   describe('#addAlbum', function(){
     it('should add an Album to the albums array', function(done){
       var aObj = {};
@@ -77,15 +81,18 @@ describe('Artist', function(){
       aObj.songs = [];
       var album = new Album(aObj);
       album.insert(function(){
-      artist.addAlbum(album);
-      expect(artist.albums).to.have.length(1);
-      expect(artist.albums[0]).to.be(album);
+        var albumId = album._id.toString();
+        artist.addAlbum(albumId);
+        expect(artist.albums).to.have.length(1);
+        expect(artist.albums[0]).to.be.equal(albumId);
+        done();
+      });
     });
   });
-*/
 
-//FIND METHODS
 
+/* Find */
+/*
   describe('.findById', function(){
     it('should find an Artist by its ID', function(done){
       Artist.findById(id, function(artist){
@@ -112,6 +119,6 @@ describe('Artist', function(){
       });
     });
   });
-
+*/
 
 });
