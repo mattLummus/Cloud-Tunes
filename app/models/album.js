@@ -15,6 +15,10 @@ function Album(object){
   //this.cover = object.cover;
 }
 
+Album.prototype.addArtist = function(artist){
+  this.artist = artist;
+};
+
 Album.prototype.addPhoto = function(oldname){
   var dirname = this.name.replace(/\s/g,'').toLowerCase();
   var abspath = __dirname + '/../static';
@@ -33,9 +37,16 @@ Album.prototype.addSong = function(songId){
   this.songs.push(songId);
 };
 
-Album.prototype.insert = function(fn){
-  albums.insert(this, function(err, record){
+Album.prototype.save = function(fn){
+  var self = this;
+  albums.save(self, function(err, record){
     fn(err);
+  });
+};
+
+Album.findByArtist = function(artist, fn){
+  albums.find({artist:artist}).toArray(function(err, records){
+    fn(records);
   });
 };
 

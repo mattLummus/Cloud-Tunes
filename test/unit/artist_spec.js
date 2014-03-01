@@ -37,7 +37,7 @@ describe('Artist', function(){
         artist = new Artist(obj);
         var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
         artist.addPhoto(oldname);
-        artist.insert(function(err){
+        artist.save(function(err){
           id = artist._id.toString();
           done();
         });
@@ -47,8 +47,6 @@ describe('Artist', function(){
 
 /* Constructor */
 
-  //Passing or un-needed tests (commented out for performance purposes)
-/*
   describe('new', function(){
     it('should create a new Artist object', function(){
       expect(artist).to.be.instanceof(Artist);
@@ -61,8 +59,8 @@ describe('Artist', function(){
     });
   });
 
-  describe('#insert', function(){
-    it('should insert a Artist object into the DB', function(done){
+  describe('#save', function(){
+    it('should save a Artist object into the DB', function(done){
       //expect(err).to.be.null;
       expect(artist).to.be.instanceof(Artist);
       expect(artist).to.have.property('_id').and.be.ok;
@@ -70,7 +68,6 @@ describe('Artist', function(){
       done();
     });
   });
-*/
 
   describe('#addAlbum', function(){
     it('should add an Album to the albums array', function(done){
@@ -80,7 +77,7 @@ describe('Artist', function(){
       aObj.year = 1983;
       aObj.songs = [];
       var album = new Album(aObj);
-      album.insert(function(){
+      album.save(function(){
         var albumId = album._id.toString();
         artist.addAlbum(albumId);
         expect(artist.albums).to.have.length(1);
@@ -92,7 +89,6 @@ describe('Artist', function(){
 
 
 /* Find */
-/*
   describe('.findById', function(){
     it('should find an Artist by its ID', function(done){
       Artist.findById(id, function(artist){
@@ -119,6 +115,5 @@ describe('Artist', function(){
       });
     });
   });
-*/
 
 });

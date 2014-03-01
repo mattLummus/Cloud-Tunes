@@ -14,8 +14,14 @@ module.exports = function(req, res, next){
 
 function load(app, fn){
   var home = require('../routes/home');
+  var songs = require('../routes/songs');
 
-  app.get('/', d, home.index);
+  app.get('/songs', d, songs.index);
+  app.post('/songs', d, songs.create);
+  app.put('/songs', d, songs.update);
+  app.get('/albums', d, albums.index);
+  app.post('/albums', d, albums.create);
+  app.put('/albums', d, albums.update);
   console.log('Routes Loaded');
   fn();
 }

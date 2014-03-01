@@ -13,9 +13,38 @@ function Song(object){
   //this.length = object.length;
 }
 
+Song.prototype.addArtist = function(artist){
+  this.artist = artist;
+};
+
+Song.prototype.addAlbum = function(album){
+  this.album = album;
+};
+
+/*
 Song.prototype.insert = function(fn){
   songs.insert(this, function(err, record){
     fn(err);
+  });
+};
+*/
+
+Song.prototype.save = function(fn){
+  var self = this;
+  songs.save(self, function(err, record){
+    fn(err);
+  });
+};
+
+Song.findByArtist = function(artist, fn){
+  songs.find({artist:artist}).toArray(function(err, records){
+    fn(records);
+  });
+};
+
+Song.findByAlbum = function(album, fn){
+  songs.find({album:album}).toArray(function(err, records){
+    fn(records);
   });
 };
 

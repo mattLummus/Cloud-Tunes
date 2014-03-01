@@ -34,7 +34,6 @@ describe('Album', function(){
     });
   });
 
-/*
   //Passing or un-needed tests (commented out for performance purposes)
 
 // Constructor
@@ -53,6 +52,18 @@ describe('Album', function(){
 
 // Instance
 
+  describe('#addArtist', function(){
+    it('should add the artist name', function(){
+      var obj = {};
+      obj.name = 'test Purple Rain';
+      obj.year = 1983;
+      obj.songs = [];
+      var album = new Album(obj);
+      album.addArtist('Prince');
+      expect(album.artist).to.equal('Prince');
+    });
+  });
+
   describe('#addPhoto', function(){
     it('should add a photo to Album', function(){
       var obj = {};
@@ -66,19 +77,18 @@ describe('Album', function(){
       expect(album.photo).to.equal('/img/testpurplerain/photo.jpg');
     });
   });
-*/
 
   describe('#addSong', function(){
-    it('should add a song to the songs property', function(){
+    it('should add a song to the songs property', function(done){
       var aObj = {};
       var sObj = {};
       aObj.name = 'test Purple Rain';
+      aObj.name = 'test Purple Rain';
       aObj.songs = [];
-      sObj.songs = [];
       var album = new Album(aObj);
       var song = new Song(sObj);
-      album.insert(function(){
-        song.insert(function(done){
+      album.save(function(){
+        song.save(function(){
           var songId = song._id.toString();
           album.addSong(songId);
           expect(album.songs).to.have.length(1);
@@ -90,9 +100,8 @@ describe('Album', function(){
     });
   });
 
-/*
-  describe('#insert', function(){
-    it('should insert a Album object into the DB', function(done){
+  describe('#save', function(){
+    it('should save a Album object into the DB', function(done){
       var obj = {};
       obj.name = 'test Purple Rain';
       obj.artist = 'Prince';
@@ -102,7 +111,7 @@ describe('Album', function(){
       var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
       album.addPhoto(oldname);
 
-      album.insert(function(err){
+      album.save(function(err){
         expect(err).to.be.null;
         expect(album).to.be.instanceof(Album);
         expect(album).to.have.property('_id').and.be.ok;
@@ -113,6 +122,27 @@ describe('Album', function(){
   });
 
 // Find
+
+  describe('.findByArtist', function(){
+    it('should find all albums by artist', function(done){
+      var obj = {};
+      var obj2= {};
+      obj.name = 'test Purple Rain';
+      obj2.name = 'test Green Rain';
+      obj.artist = 'Prince';
+      obj2.artist = 'Prince';
+      var album = new Album(obj);
+      var album2 = new Album(obj2);
+      album.save(function(){
+        album2.save(function(){
+          Album.findByArtist('Prince', function(albums){
+            expect(albums).to.have.length(2);
+            done();
+          });
+        });
+      });
+    });
+  });
 
   describe('.findById', function(){
     it('should find an Album by its ID', function(done){
@@ -125,7 +155,7 @@ describe('Album', function(){
       var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
       album.addPhoto(oldname);
 
-      album.insert(function(err){
+      album.save(function(err){
         var id = album._id.toString();
         console.log(id);
         Album.findById(id, function(album){
@@ -148,7 +178,7 @@ describe('Album', function(){
       var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
       album.addPhoto(oldname);
 
-      album.insert(function(err){
+      album.save(function(err){
         Album.findAll(function(albums){
           expect(albums).to.have.length(1);
           done();
@@ -168,7 +198,7 @@ describe('Album', function(){
       var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
       album.addPhoto(oldname);
 
-      album.insert(function(err){
+      album.save(function(err){
         Album.findByName(album.name, function(record){
           expect(record.name).to.equal(album.name);
           done();
@@ -176,6 +206,5 @@ describe('Album', function(){
       });
     });
   });
-*/
 
 });

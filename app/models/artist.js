@@ -33,8 +33,18 @@ Artist.prototype.addAlbum = function(albumId){
   this.albums.push(albumId);
 };
 
+/*
 Artist.prototype.insert = function(fn){
   artists.insert(this, function(err, record){
+    fn(err);
+  });
+};
+*/
+
+
+Artist.prototype.save = function(fn){
+  var self = this;
+  artists.save(self, function(err, record){
     fn(err);
   });
 };
@@ -44,7 +54,6 @@ Artist.prototype.insert = function(fn){
 Artist.findById = function(id, fn){
   var _id = mongo.ObjectID(id);
   artists.findOne({_id:_id}, function(err, record){
-    console.log(err);
     fn(record);
   });
 };

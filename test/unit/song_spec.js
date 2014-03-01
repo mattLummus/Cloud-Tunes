@@ -48,8 +48,28 @@ describe('Song', function(){
 
 /* Instance  */
 
-  describe('#insert', function(){
-    it('should insert a Song object into the DB', function(done){
+  describe('#addArtist', function(){
+    it('should add the artist name', function(){
+      var obj = {};
+      obj.name = 'test Purple Rain';
+      var song = new Song(obj);
+      song.addArtist('Prince');
+      expect(song.artist).to.equal('Prince');
+    });
+  });
+
+  describe('#addAlbum', function(){
+    it('should add the album name', function(){
+      var obj = {};
+      obj.name = 'test Purple Rain';
+      var song = new Song(obj);
+      song.addAlbum('Purple Rain');
+      expect(song.album).to.equal('Purple Rain');
+    });
+  });
+
+  describe('#save', function(){
+    it('should save a Song object into the DB', function(done){
       var obj = {};
       obj.name = 'Purple Rain';
       obj.artist = 'Prince';
@@ -58,7 +78,7 @@ describe('Song', function(){
       //var oldname = __dirname + '/../fixtures/tempPhoto-copy.jpg';
       //album.addPhoto(oldname);
 
-      song.insert(function(err){
+      song.save(function(err){
         expect(err).to.be.null;
         expect(song).to.be.instanceof(Song);
         expect(song).to.have.property('_id').and.be.ok;
@@ -70,6 +90,48 @@ describe('Song', function(){
 
 /* Find */
 
+  describe('.findByArtist', function(){
+    it('should find all songs by artist', function(done){
+      var obj = {};
+      var obj2= {};
+      obj.name = 'Purple Rain';
+      obj2.name = 'Green Rain';
+      obj.artist = 'Prince';
+      obj2.artist = 'Prince';
+      var song = new Song(obj);
+      var song2 = new Song(obj2);
+      song.save(function(){
+        song2.save(function(){
+          Song.findByArtist('Prince', function(songs){
+            expect(songs).to.have.length(2);
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  describe('.findByAlbum', function(){
+    it('should find all songs by album', function(done){
+      var obj = {};
+      var obj2= {};
+      obj.name = 'Purple Rain';
+      obj2.name = 'Green Rain';
+      obj.album = 'Purple Rain';
+      obj2.album = 'Purple Rain';
+      var song = new Song(obj);
+      var song2 = new Song(obj2);
+      song.save(function(){
+        song2.save(function(){
+          Song.findByAlbum('Purple Rain', function(songs){
+            expect(songs).to.have.length(2);
+            done();
+          });
+        });
+      });
+    });
+  });
+
   describe('.findById', function(){
     it('should find an Song by its ID', function(done){
       var obj = {};
@@ -78,7 +140,7 @@ describe('Song', function(){
       obj.album = 'Purple Rain';
       var song = new Song(obj);
 
-      song.insert(function(err){
+      song.save(function(err){
         var id = song._id.toString();
         console.log(id);
         Song.findById(id, function(song){
@@ -97,7 +159,7 @@ describe('Song', function(){
       obj.album = 'Purple Rain';
       var song = new Song(obj);
 
-      song.insert(function(err){
+      song.save(function(err){
         Song.findAll(function(songs){
           expect(songs).to.have.length(1);
           done();
@@ -114,7 +176,7 @@ describe('Song', function(){
       obj.album = 'Purple Rain';
       var song = new Song(obj);
 
-      song.insert(function(err){
+      song.save(function(err){
         Song.findByName(song.name, function(record){
           expect(record.name).to.equal(song.name);
           done();
