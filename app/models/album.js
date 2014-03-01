@@ -28,6 +28,11 @@ Album.prototype.addPhoto = function(oldname){
   this.photo = relpath;
 };
 
+//songId = string
+Album.prototype.addSong = function(songId){
+  this.songs.push(songId);
+};
+
 Album.prototype.insert = function(fn){
   albums.insert(this, function(err, record){
     fn(err);
