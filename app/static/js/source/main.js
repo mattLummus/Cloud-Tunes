@@ -4,12 +4,38 @@
 
   $(document).ready(initialize);
   $('#addArtist').click(showArtistForm);
+  $('#addAlbum').click(showAlbumForm);
+  $('#addSong').click(showSongForm);
+  $('input[type="text"]').focus(function(){
+    $(this).addClass('focusField');
+  });
+  $('input[type="text"]').blur(function(){
+    $(this).removeClass('focusField');
+  });
 
   var origin = window.location.origin;
 
+//---- Show Forms
+
   function showArtistForm(){
+    $('#submitSong').css('display', 'none');
+    $('#submitAlbum').css('display', 'none');
     $('#submitArtist').slideToggle('fast');
   }
+
+  function showAlbumForm(){
+    $('#submitSong').css('display', 'none');
+    $('#submitArtist').css('display', 'none');
+    $('#submitAlbum').slideToggle('fast');
+  }
+
+  function showSongForm(){
+    $('#submitArtist').css('display', 'none');
+    $('#submitAlbum').css('display', 'none');
+    $('#submitSong').slideToggle('fast');
+  }
+
+//----
 
   function initialize(){
     $(document).foundation();

@@ -13,29 +13,75 @@ html(class='no-js', lang='en')
       .row
         .small-12.columns
           .header
-            h1= title
-              input.searchField.right(type= 'text', placeholder='search')
-      .row
-        .small-4.columns
-          button#addArtist.btn.tiny.round Add artist
-        .small-4.columns
-          button#addAlbum.btn.tiny.round Add ablum
-        .small-4.columns
-          button#addSong.btn.tiny.round Add song
-      .row
-        .small-4.columns
-          #sideBar
-        .small-8.colums
-          #mainArea
-            form#submitArtist
-              fieldset
-                label
-                  input(name='artistName', placeholder='Name')
-                  input(name='artistPhoto', type='file')
-                  button#saveArtist.btn.tiny.round.centered Save artist
-      .row
-        .small-12.columns
-            #ablumCover Artist
+            h1 MochaCast
+      #nav
+        .row
+          .small-9.columns
+            .button-bar
+              ul.button-group.round
+                li: a#addArtist.button.tiny Add Artist
+                li: a#addAlbum.button.tiny Add Album
+                li: a#addSong.button.tiny Add Song
+          .small-3.columns
+            form#search
+              .row.collapse
+                .small-9.columns
+                  input.right(type= 'text', placeholder='Search', autofocus=true)
+                .small-3.columns
+                  a#searchbtn.button.postfix.tiny Search
+
+      #formArea
+        .row
+          .small-6.columns
+              form#submitArtist
+                fieldset
+                  .row
+                    .small-12.columns
+                      input(type='text', name='artistName', placeholder='Artist')
+                  .row
+                    .small-6.columns
+                      label Artist Photo
+                        input(name='artistPhoto', type='file')
+                    .small-6.columns
+                      a#saveArtist.button.tiny.round.right Save Artist
+        .row
+          .small-6.columns
+              form#submitAlbum
+                fieldset
+                  .row
+                    .small-12.columns
+                      input(type='text', name='albumTitle', placeholder='Album Title')
+                  .row
+                    .small-4.columns
+                      label Album Art
+                        input(name='albumPhoto', type='file')
+                    .small-4.columns
+                      select(name='Artist')
+                        option(value='Select Artist', disabled) Select Artist
+                    .small-4.columns
+                      a#saveAlbum.button.tiny.round Save Album
+        .row
+          .small-6.columns
+              form#submitSong
+                fieldset
+                  .row
+                    .small-12.columns
+                      input(type='text', name='songTitle', placeholder='Song Title')
+                  .row
+                    .small-4.columns
+                      select(name='Artist')
+                        option(value='Select Artist', disabled) Select Artist
+                    .small-4.columns.left
+                      select(name='Album')
+                        option(value='Select Album', disabled) Select Album
+                    .small-4.columns.left
+                      a#saveSong.button.tiny.round Save Song
+
+        .row
+          .small-12.columns
+            #mainArea
+              #album
+                p Artist
 
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')
