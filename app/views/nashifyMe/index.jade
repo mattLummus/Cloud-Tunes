@@ -1,5 +1,4 @@
 doctype html
-//[if IE 9]><html class="lt-ie10" lang="en" > <![endif]
 html(class='no-js', lang='en')
   head
     meta(charset='utf-8')
@@ -10,22 +9,36 @@ html(class='no-js', lang='en')
     link(rel='stylesheet', href='/less/app.css')
     script(src='/js/vendor/modernizr.js')
   body
-    .row
-      .small-12.columns
-        #container
-          #header
-             h3= title
-               input.searchField(type= 'text', value='song search')
-            #sideBar
-              button#addSong.btn.tiny.round.centered Add artist
-            #mainArea
-              #ablumCover Artist
-                  form#songData.hide
+    #container
+      .row
+        .small-12.columns
+          .header
+            h1= title
+              input.searchField.right(type= 'text', placeholder='search')
+      .row
+        .small-4.columns
+          button#addArtist.btn.tiny.round Add artist
+        .small-4.columns
+          button#addAlbum.btn.tiny.round Add ablum
+        .small-4.columns
+          button#addSong.btn.tiny.round Add song
+      .row
+        .small-4.columns
+          #sideBar
+        .small-8.colums
+          #mainArea
+            form#submitArtist
+              fieldset
+                label
+                  input(name='artistName', placeholder='Name')
+                  input(name='artistPhoto', type='file')
+                  button#saveArtist.btn.tiny.round.centered Save artist
+      .row
+        .small-12.columns
+            #ablumCover Artist
 
-          
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')
     script(src='/js/vendor/lodash.js')
     script(src='/js/vendor/moment.js')
     script(src='/js/source/main.js')
-

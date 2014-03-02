@@ -7,6 +7,12 @@ var app = require('../../app/app');
 var request = require('supertest');
 var expect = require('chai').expect;
 var Song;
+var id1;
+var id2;
+var id3;
+var s1;
+var s2;
+var s3;
 
 describe('songs', function(){
 
@@ -20,13 +26,16 @@ describe('songs', function(){
   });
 
   beforeEach(function(done){
-    var s1 = new Song({name:'Get High', artist:'Papa Roach', album: 'Spacejam'});
-    var s2 = new Song({name:'Dudes', artist:'Britney Spears', album: 'Hit Me Baby'});
-    var s3 = new Song({name:'Blah', artist:'The Cheerios', album: 'Breakfast'});
+    s1 = new Song({name:'Get High', artist:'Papa Roach', album: 'Spacejam'});
+    s2 = new Song({name:'Dudes', artist:'Britney Spears', album: 'Hit Me Baby'});
+    s3 = new Song({name:'Blah', artist:'The Cheerios', album: 'Breakfast'});
 
     s1.save(function(){
       s2.save(function(){
         s3.save(function(){
+          id1 = s1._id.toString();
+          id2 = s2._id.toString();
+          id3 = s3._id.toString();
           done();
         });
       });
@@ -60,12 +69,24 @@ describe('songs', function(){
              artist:'Some Dude',
              album:'Lets Go'})
       .end(function(err, res){
-        console.log(res.body.songs);
         expect(res.body.name).to.be.ok;
         expect(res.body._id).to.have.length(24);
         done();
       });
     });
   });
+
+  describe('GET /songs/filter?type=artist', function(){
+    it('shoud return all songs by artist', function(done){
+      request(app)
+      .get('/songs/filter?type=artist&which='+s1.artist)
+      .end(function(err, res){
+        console.log('done!');
+        done();
+      });
+    });
+  });
+
+
 
 });
