@@ -6,9 +6,19 @@
 @box-shadow: 2px 2px peru;
 @font-size: 1em;
 
+//---- Unused font families
+  //font-family: 'Josefin Sans', sans-serif;
+  //font-family: 'Poiret One', cursive;
+  //font-family: 'Lily Script One', cursive;
+  //font-family: 'Josefin Sans', sans-serif;
+  //font-family: 'Monoton', cursive;
+
 body{
   background-color: @bg-color;
-  font-family: 'Josefin Sans', sans-serif;
+}
+
+.hide {
+  display: hidden;
 }
 
 //---- Header
@@ -21,11 +31,7 @@ body{
 }
 
 h1 {
-  //font-family: 'Poiret One', cursive;
-  //font-family: 'Lily Script One', cursive;
   font-family: 'Montserrat Alternates', sans-serif;
-  //font-family: 'Josefin Sans', sans-serif;
-  //font-family: 'Monoton', cursive;
   letter-spacing: -4px;
   font-size: 4em;
   text-shadow: @box-shadow;
@@ -44,8 +50,14 @@ h1 {
   font-size: @font-size;
 }
 
-#searchbtn {
+#searchbtn{
   border-radius: 0px 50px 50px 0px;
+}
+
+#selectSearch{
+  border-radius: 50px 0px 0px 50px;
+  padding-left: 30%;
+
 }
 
 //---- Forms
@@ -53,7 +65,6 @@ h1 {
 form .button {
   background: @color3;
   color: black;
-  font-family: 'Josefin Sans', sans-serif;
   font-size: @font-size;
 }
 
@@ -71,17 +82,78 @@ fieldset {
 //---- Main Display
 
 #mainArea {
+  font-family: 'Josefin Sans', sans-serif;
   color: @color2;
   background-color: @color2;
   width: 100%;
-  height: 1000px;
+  height: auto;
+  overflow: scroll;
+  max-height: auto;
   padding: 40px;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 10px;
 }
 
-#album {
-  width: 220px;
-  height: 220px;
-  background-image: url('http://upload.wikimedia.org/wikipedia/en/thumb/9/9c/Princepurplerain.jpg/220px-Princepurplerain.jpg');
-  border-radius: 5px
+.photo{
+  position: relative;
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  float: left;
+  margin: 0px 25px 30px 0px;
+  box-shadow: 3px 2px 12px #000000;
 }
+
+.albumPhoto{
+  position: relative;
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+  float: left;
+  margin: 0px 25px 30px 0px;
+  box-shadow: 3px 2px 12px #000000;
+}
+
+.footer div, {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0px 0px 5px 0px;
+}
+
+.albumyear {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0px 0px 5px 5px;
+  color: @color2;
+  padding: 5px;
+  position: absolute;
+  bottom: -26px;
+  left: 0px;
+}
+
+.editArtist, .editAlbum{
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 0px 0px 5px 5px;
+  color: @color2;
+  padding: 5px;
+  position: absolute;
+  bottom: -26px;
+  right: 0px;
+  font-size: 16px;
+}
+/*
+.grow {
+  display: inline-block;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: transform;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.grow:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+*/

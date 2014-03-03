@@ -12,7 +12,7 @@ function Album(object){
   this.artist = object.artist;
   this.year = parseInt(object.year);
   this.songs = object.songs || [];
-  //this.cover = object.cover;
+  this.cover = object.cover;
 }
 
 Album.prototype.addArtist = function(artist){
@@ -45,7 +45,11 @@ Album.prototype.save = function(fn){
 };
 
 Album.findByArtist = function(artist, fn){
+  console.log('Find By Artist:');
+  console.log(artist);
   albums.find({artist:artist}).toArray(function(err, records){
+    console.log('Records:');
+    console.log(records);
     fn(records);
   });
 };

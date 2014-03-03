@@ -26,11 +26,11 @@ function load(app, fn){
   app.get('/albums', d, albums.index);
   app.post('/albums', d, albums.create);
   app.put('/albums', d, albums.update);
-  //app.get('/albums/filter', d, albums.filter);
+  app.get('/albums/filter', d, albums.filter);
   app.get('/artists', d, artists.index);
   app.post('/artists', d, artists.create);
   app.put('/artists', d, artists.update);
-  //app.get('/artists/filter', d, artists/filter);
+  app.get('/artists/filter', d, artists.filter);
   console.log('Routes Loaded');
   fn();
 }

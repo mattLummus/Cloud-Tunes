@@ -22,3 +22,32 @@ exports.index = function(req, res){
     res.send({albums:albums});
   });
 };
+
+exports.filter = function(req, res){
+  var type = req.query.type;
+  var input = req.query.which.replace('%20', ' ');
+  console.log('Type:');
+  console.log(type);
+  console.log('Input:');
+  console.log(input);
+
+  switch(type){
+    case 'artist':
+      Album.findByArtist(input, function(albums){
+        console.log(albums);
+        res.send({albums:albums});
+      });
+      break;
+    case 'name':
+      Album.findByName(input, function(album){
+        res.send({album:album});
+      });
+      break;
+    case 'ID':
+      Album.findById(input, function(album){
+        res.send({album:album});
+      });
+      break;
+    default:
+  }
+};

@@ -14,6 +14,7 @@ html(class='no-js', lang='en')
         .small-12.columns
           .header
             h1 MochaCast
+            h5 "I'm in your data." - Prince
       #nav
         .row
           .small-9.columns
@@ -22,10 +23,19 @@ html(class='no-js', lang='en')
                 li: a#addArtist.button.tiny Add Artist
                 li: a#addAlbum.button.tiny Add Album
                 li: a#addSong.button.tiny Add Song
+                li: a#showArtists.button.tiny Show Artists
+                li: a#showAlbums.button.tiny Show Albums
+                li: a#showSongs.button.tiny Show Songs
           .small-3.columns
             form#search
               .row.collapse
-                .small-9.columns
+                .small-3.columns
+                  select#selectSearch.button.prefix.tiny
+                    option Select
+                    option(value='artist') Artist
+                    option(value='album') Album
+                    option(value='song') Song
+                .small-6.columns
                   input.right(type= 'text', placeholder='Search', autofocus=true)
                 .small-3.columns
                   a#searchbtn.button.postfix.tiny Search
@@ -37,11 +47,12 @@ html(class='no-js', lang='en')
                 fieldset
                   .row
                     .small-12.columns
-                      input(type='text', name='artistName', placeholder='Artist')
+                      input#artistName(type='text', name='name', placeholder='Artist')
                   .row
                     .small-6.columns
                       label Artist Photo
-                        input(name='artistPhoto', type='file')
+                        input#artistPhoto(name='photo', type='text', placeholder='Url')
+                        input#artistId(name='_id', type='hidden')
                     .small-6.columns
                       a#saveArtist.button.tiny.round.right Save Artist
         .row
@@ -49,14 +60,17 @@ html(class='no-js', lang='en')
               form#submitAlbum
                 fieldset
                   .row
-                    .small-12.columns
-                      input(type='text', name='albumTitle', placeholder='Album Title')
+                    .small-8.columns
+                      input#albumName(type='text', name='name', placeholder='Album Title')
+                    .small-4.columns
+                      input#albumYear(type='text', name='year', placeholder='Year')
                   .row
                     .small-4.columns
                       label Album Art
-                        input(name='albumPhoto', type='file')
+                        input#albumPhoto(name='cover', type='text', placeholder='Url...')
+                        input#albumId(name='_id', type='hidden')
                     .small-4.columns
-                      select(name='Artist')
+                      select.artist#artistSelect(name='artist')
                         option(value='Select Artist', disabled) Select Artist
                     .small-4.columns
                       a#saveAlbum.button.tiny.round Save Album
@@ -68,23 +82,33 @@ html(class='no-js', lang='en')
                     .small-12.columns
                       input(type='text', name='songTitle', placeholder='Song Title')
                   .row
-                    .small-4.columns
-                      select(name='Artist')
+                    .small-3.columns
+                      select.artist.selectArtist(name='artist')
                         option(value='Select Artist', disabled) Select Artist
-                    .small-4.columns.left
-                      select(name='Album')
+                    .small-3.columns.left
+                      select#album.selectAlbum(name='album')
                         option(value='Select Album', disabled) Select Album
-                    .small-4.columns.left
+                    .small-2.columns
+                      input(name='mp3', type='file')
+                    .small-3.columns.left
                       a#saveSong.button.tiny.round Save Song
 
         .row
           .small-12.columns
             #mainArea
-              #album
-                p Artist
+              .row
+                .small-12.columns
+                  table#songTable
+                    thead
+                      tr
+                        th.th Song title
+                        th.th Artist
+                        th.th Album
+                    tbody#songTBody
 
-    script(src='/js/vendor/jquery.js')
-    script(src='/js/vendor/foundation.js')
-    script(src='/js/vendor/lodash.js')
-    script(src='/js/vendor/moment.js')
-    script(src='/js/source/main.js')
+
+        script(src='/js/vendor/jquery.js')
+        script(src='/js/vendor/foundation.js')
+        script(src='/js/vendor/lodash.js')
+        script(src='/js/vendor/moment.js')
+        script(src='/js/source/main.js')

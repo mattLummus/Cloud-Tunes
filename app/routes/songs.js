@@ -25,9 +25,10 @@ exports.index = function(req, res){
 
 exports.filter = function(req, res){
   var type = req.query.type;
-  var input = req.query.which.split('%20');
-  console.log('filter!');
+  var input = req.query.which.replace('%20', ' ');
+  console.log('Type:');
   console.log(type);
+  console.log('Input:');
   console.log(input);
 
   switch(type){

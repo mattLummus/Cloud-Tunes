@@ -9,7 +9,7 @@ function Song(object){
   this.name = object.name;
   this.artist = object.artist;
   this.album = object.album;
-  //this.file = object.file;
+  this.file = object.file;
   //this.length = object.length;
 }
 
