@@ -4,7 +4,6 @@ var Album = require('../models/album');
 
 exports.create = function(req, res){
   var album = new Album(req.body);
-  console.log(req.body);
   album.save(function(){
     res.send(album);
   });

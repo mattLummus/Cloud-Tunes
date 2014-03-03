@@ -36,6 +36,8 @@
   }
 
 //----
+  var artists = [];
+  //var albums = [];
 
   function initialize(){
     $(document).foundation();
@@ -57,11 +59,13 @@
   /////////SHOW FUNCTIONS////////
   function showArtists(){
     $('#artistSelect').empty();
+    $('#artist').empty();
     var url = origin + '/artists';
     $.getJSON(url, displayArtists);
   }
 
   function showAlbums(){
+    $('.selectAlbum').empty();
     var url = origin + '/albums/';
     $.getJSON(url, displayAlbums);
   }
@@ -89,7 +93,8 @@
   }
 
   function newArtist(artist){
-    $('#submitArtist input').val('');
+    console.log(artist);
+    $('#submitArtist')[0].reset();
     displayArtist(artist);
   }
 
@@ -98,22 +103,23 @@
     showAlbums();
     var url = origin + '/albums';
     var data = $('#submitAlbum').serialize();
-    var type = 'PUT';
+    var type = 'POST';
     var success = newAlbum;
     $.ajax({url:url, type:type, data:data, success:success});
     event.preventDefault(err);
   }
 
   function newAlbum(album){
+    $('input').val('');
     $('#mainArea').empty();
-    $('#submitArtist input').val('');
+    $('#submitArtist')[0].reset();
     displayAlbum(album);
   }
 
   ////////DISPLAY FUNCTIONS////////
   //displays one artist at a time on the to the #mainArea
   function displayArtist(artist){
-
+    artists.push(artist);
     var $photo = $('<div>').attr('data-artist-id', artist._id);
     var $name = $('<div>').addClass('name');
     var $header = $('<div>').addClass('footer');
@@ -149,7 +155,7 @@
   function displayAlbum(album){
     var $option = $('<option>').text(album.name);
     $('#album').append($option);
-
+    console.log(album);
     var $photo = $('<div>').attr('data-album-id', album._id);
     var $name = $('<div>').addClass('name');
     var $header = $('<div>').addClass('footer');
@@ -191,7 +197,7 @@
     showAlbums();
     var x = $(this).parent().css('background-image');
     $('#artistPhoto').val(x);
-    $('#artistId').val($(this).parent().attr('data-artist-id'));
+    $('#artistId').val($(this).parent().attr('-id'));
     showArtistForm();
   }
   

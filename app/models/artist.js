@@ -9,7 +9,6 @@ var mongo = require('mongodb');
 function Artist(object){
   this._id = object._id;
   this.name = object.name;
-  this.albums = object.albums || [];
   this.photo = object.photo;
 }
 
@@ -44,7 +43,7 @@ Artist.prototype.insert = function(fn){
 
 Artist.prototype.save = function(fn){
   var self = this;
-  if (self._id){
+  if (self._id.length === 24){
     self._id = mongo.ObjectID(self._id);
   }
   artists.save(self, function(err, record){

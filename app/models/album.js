@@ -11,7 +11,6 @@ function Album(object){
   this.name = object.name;
   this.artist = object.artist;
   this.year = parseInt(object.year);
-  this.songs = object.songs || [];
   this.cover = object.cover;
 }
 
@@ -39,8 +38,12 @@ Album.prototype.addSong = function(songId){
 
 Album.prototype.save = function(fn){
   var self = this;
+  console.log('oooooooooooo' +self._id);
+  if (self._id.length === 24){
+    self._id = mongo.ObjectID(self._id);
+  }
   albums.save(self, function(err, record){
-    fn(err);
+    fn(record);
   });
 };
 
