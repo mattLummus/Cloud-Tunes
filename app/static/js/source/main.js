@@ -45,13 +45,21 @@
     //$('#mainArea').on('click','.artist', showArtists);
     $('#saveArtist').click(addArtist);
     $('#saveAlbum').click(addAlbum);
+    $('#saveSong').click(addSong);
     $('#showArtists').click(showArtists);
     $('#showAlbums').click(showAlbums);
-    $('#mainArea').on('click', '.editArtist', editArtist);
+    $('#showSongs').click(showSongs);
+    $(function(){
+      $('#mainArea').on('click', '.editArtist', editArtist);
+      $('#mainArea').on('click', '.editArtist', function(event){
+        event.stopImmediatePropagation();
+      });
+    });
     $('#mainArea').on('click', '.editAlbum', editAlbum);
     $('#mainArea').on('click', '.editing', addArtist);
     $('#mainArea').on('click', '.editingAlbum', addAlbum);
     $('#mainArea').on('click', '.photo', filterArtist);
+    $('#mainArea').on('click', '.albumPhoto', filterAlbum);
     showAlbums();
     showArtists();
   }
@@ -70,13 +78,10 @@
     $.getJSON(url, displayAlbums);
   }
 
-  /*
   function showSongs(){
     var url = origin + '/songs/';
-    $.getJSON(url, function(data){
-    });
+    $.getJSON(url, displaySongs);
   }
-  */
   /////////END SHOW FUNCTIONS////////
 
   ////////ADD FUNCTIONS///////
@@ -99,7 +104,9 @@
   }
 
   function addAlbum(err){
-    
+    if ($(this).attr('id') === 'editing'){
+      $(this).attr('id','saveArtist');
+    }
     showAlbums();
     var url = origin + '/albums';
     var data = $('#submitAlbum').serialize();
@@ -114,6 +121,23 @@
     $('#mainArea').empty();
     $('#submitArtist')[0].reset();
     displayAlbum(album);
+  }
+  
+  function addSong(err){
+    var url =  origin + '/songs';
+    var data = $('#submitSong').serialize();
+    var type = 'POST';
+    var success = newSong;
+    console.log(data);
+    console.log(url);
+    $.ajax({url:url, type:type, data:data, success:success});
+    event.preventDefault(err);
+  }
+
+  function newSong(song){
+    $('#inputSong').val('');
+    $('#submitArtist')[0].reset();
+    displaySong(song);
   }
 
   ////////DISPLAY FUNCTIONS////////
@@ -140,7 +164,8 @@
     var $headertxt = $('<div style="float:left; padding:5px;"></div>');
     $headertxt.text(artist.name);
     $header.append($headertxt);
-    $photo.append($header, $edit);
+    $photo.append($header);
+    $photo.prepend($edit);
     $('#mainArea').prepend($photo);
   }
 
@@ -155,7 +180,6 @@
   function displayAlbum(album){
     var $option = $('<option>').text(album.name);
     $('#album').append($option);
-    console.log(album);
     var $photo = $('<div>').attr('data-album-id', album._id);
     var $name = $('<div>').addClass('name');
     var $header = $('<div>').addClass('footer');
@@ -182,9 +206,37 @@
   
   function displayAlbums(data){
     $('#mainArea').empty();
-    console.log(data.albums);
     for(var i = 0; i < data.albums.length; i++){
       displayAlbum(data.albums[i]);
+    }
+  }
+
+  function displaySong(song){
+    var $tr = $('<tr>');
+    var $title = $('<td>').text(song.name);
+    var $artist = $('<td>').text(song.artist);
+    var $album = $('<td>').text(song.album);
+
+    $tr.append($title, $artist, $album);
+    $('#songBody').append($tr);
+  }
+  
+  function displaySongs(data){
+    console.log(data);
+    $('#mainArea').empty();
+    var $table = $('<table>');
+    var $thead = $('<thead>');
+    var $tbody = $('<tbody>').attr('id','songBody');
+    var $tr = $('<tr>');
+    var $th1 = $('<th>').text('Song Title');
+    var $th2 = $('<th>').text('Artist');
+    var $th3 = $('<th>').text('Album');
+    
+    $('#mainArea').append($table.append($thead.append($tr.append($th1, $th2, $th3)), $tbody));
+
+    console.log(data.songs);
+    for(var i = 0; i < data.songs.length; i++){
+      displaySong(data.songs[i]);
     }
   }
   ////////END DISPLAY FUNCTIONS////////
@@ -241,12 +293,15 @@
     console.log(artist);
     var url = origin + '/albums/filter?type=artist&which='+ artist;
     console.log(url);
-    //var data = $('#submitAlbum').serialize();
-    //var type = 'GET';
     $.getJSON(url, displayAlbums);
-    //var success = displayAlbums;
-    //$.ajax({url:url, type:type, data:data, success:success});
   }
 
+  function filterAlbum(){
+    var album = $(this).children('div:nth-child(1)').text();
+    console.log(album);
+    var url = origin + '/albums/filter?type=name&which='+ album;
+    console.log(url);
+    $.getJSON(url, displaySongs);
+  }
 
 })();

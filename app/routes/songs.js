@@ -4,7 +4,8 @@ var Song = require('../models/song');
 
 exports.create = function(req, res){
   var song = new Song(req.body);
-  console.log(req.body);
+  console.log('Req.files!');
+  console.log('XXXXXXXXXXXXXXXXXXXXX'+req.files);
   song.save(function(){
     res.send(song);
   });

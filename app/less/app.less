@@ -1,8 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Engagement);
 @import url(http://fonts.googleapis.com/css?family=Poiret+One|Lily+Script+One|Montserrat+Alternates|Josefin+Sans:400,600|Monoton);
+@import url(http://fonts.googleapis.com/css?family=Iceland);
+@import url(http://fonts.googleapis.com/css?family=Bubbler+One);
 @bg-color: #79472F;
 @color2: wheat;
 @color3: peru;
+@color4: #311919;
 @box-shadow: 2px 2px peru;
 @font-size: 1em;
 
@@ -48,10 +51,27 @@ h1 {
   color: black;
   font-family: 'Josefin Sans', sans-serif;
   font-size: @font-size;
+  box-shadow: @box-shadow;
 }
 
 #searchbtn{
   border-radius: 0px 50px 50px 0px;
+  box-shadow: 2px 2px 2px peru;
+}
+
+input#search{
+  box-shadow: 2px 2px peru;
+  border: none;
+  background: @color2;
+  filter: alpha(opacity=50); /* IE */
+  -moz-opacity:0.6; /* Mozilla */
+  opacity: 0.6; /* CSS3 */
+}
+
+input#search:hover{
+  background: white;
+-moz-opacity:100.0;
+  opacity:100.0;
 }
 
 #selectSearch{
@@ -66,13 +86,40 @@ form .button {
   background: @color3;
   color: black;
   font-size: @font-size;
+  box-shadow: @box-shadow;
+}
+.button:hover {
+  background-color: @bg-color;
+  color: @color2;
+  text-shadow: 1px 1px @color4;
 }
 
+#artistName, #artistPhoto{
+  box-shadow: 2px 2px peru;
+  border: none;
+  filter: alpha(opacity=50); /* IE */
+  -moz-opacity: 0.6; /* Mozilla */
+  opacity: 7.6; /* CSS3 */
+}
 
 #submitArtist, #submitAlbum, #submitSong {
   display: none;
   background-color: @color2;
-  border-radius: 10px
+  -webkit-border-radius: 50px;
+  -webkit-border-top-right-radius: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  -moz-border-radius: 50px;
+  -moz-border-radius-topright: 15px;
+  -moz-border-radius-bottomleft: 15px;
+  border-radius: 50px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  position: relative;
+  bottom: 55px;
+  box-shadow: @box-shadow;
+}
+#saveArtist, #saveAlbum, #saveSong{
+  margin-top: 6%;
 }
 
 fieldset {
@@ -90,7 +137,15 @@ fieldset {
   overflow: scroll;
   max-height: auto;
   padding: 40px;
-  border-radius: 10px;
+  -webkit-border-radius: 50px;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius: 50px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-radius: 50px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .photo{
@@ -156,3 +211,52 @@ fieldset {
   -ms-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.songTable{
+  font-family: 'Bubbler One', sans-serif;
+//  font-family: 'Iceland', cursive;
+  width: 90%;
+  margin: auto;
+  background: @bg-color;
+  border: 1px solid @color2;
+  -webkit-border-radius: 50px;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius: 50px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-radius: 50px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+thead{
+  text-shadow: 1px 1px @color2;
+  border: 1px solid @color2;
+  width: 80%;
+  background: @color3;
+
+}
+
+th{
+  border: 1px solid @color2;
+  background: @bg-color;
+}
+
+td.td{
+  border: 1px solid @color2;
+  color: @color2;
+  background: @color4;
+}
+
+td:hover{
+  background: @color3;
+  color: @color2;
+  text-shadow: 1px 1px @color4;
+}
+
+.tRow{
+  border: 1px solid @color2;
+
+}
+

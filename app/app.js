@@ -28,6 +28,7 @@ app.use(express.session({
   secret: 'change-this-to-a-super-secret-message',
   cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }));
+//app.use(express.bodyParser( { keepExtensions: true, uploadDir: __dirname + '/photos' } ));
 app.use(app.router);
 /* --- pipeline ends   */
 

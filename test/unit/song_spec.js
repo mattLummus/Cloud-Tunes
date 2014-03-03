@@ -87,7 +87,22 @@ describe('Song', function(){
       });
     });
   });
-
+/*
+describe('#insert', function(){
+    it('should insert a new Album into Mongo', function(done){
+      var o = {};
+      o.title = 'Test Euro Vacation';
+      o.taken = '2010-03-25';
+      var a1 = new Album(o);
+      var oldname = __dirname + '/../fixtures/euro-copy1.jpg';
+      a1.addMP3(oldname);
+      a1.insert(function(err){
+        expect(a1._id.toString()).to.have.length(24);
+        done();
+      });
+    });
+  });
+*
 /* Find */
 
   describe('.findByArtist', function(){

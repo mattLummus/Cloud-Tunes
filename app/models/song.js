@@ -3,6 +3,8 @@
 module.exports = Song;
 var songs = global.nss.db.collection('songs');
 var mongo = require('mongodb');
+var fs = require('fs');
+var path = require('path');
 
 function Song(object){
   this._id = object._id;
@@ -57,4 +59,17 @@ Song.findByName = function(name, fn){
   songs.findOne({name:name}, function(err, record){
     fn(record);
   });
+};
+
+Song.prototype.addSong = function(oldpath){
+  var dirname = this.title.replace(/\s/g, '').toLowerCase();
+  var abspath = __dirname + '/../static';
+  var relpath = '/audios/' + dirname;
+  fs.mkdirSync(abspath + relpath);
+
+  var extension = path.extname(oldpath);
+  relpath += '/audios' + extension;
+  fs.renameSync(oldpath, abspath + relpath);
+
+  this.file = relpath;
 };

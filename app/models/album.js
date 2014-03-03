@@ -38,7 +38,6 @@ Album.prototype.addSong = function(songId){
 
 Album.prototype.save = function(fn){
   var self = this;
-  console.log('oooooooooooo' +self._id);
   if (self._id.length === 24){
     self._id = mongo.ObjectID(self._id);
   }
@@ -71,6 +70,8 @@ Album.findAll = function(fn){
 };
 
 Album.findByName = function(name, fn){
+  console.log('NAME:::::');
+  console.log(name);
   albums.findOne({name:name}, function(err, record){
     fn(record);
   });
