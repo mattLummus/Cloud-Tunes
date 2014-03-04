@@ -7,14 +7,29 @@ html(class='no-js', lang='en')
     link(rel='stylesheet', href='/css/normalize.css')
     link(rel='stylesheet', href='/css/foundation.css')
     link(rel='stylesheet', href='/less/app.css')
+    link(rel='stylesheet', href='/less/player.css')
     script(src='/js/vendor/modernizr.js')
   body
     #container
       .row
-        .small-12.columns
+        .small-4.columns
           .header
             h1 MochaCast
             h5 "I'm in your data." - Prince
+        .small-8.columns
+            button.back.tiny Back
+            button.playPause Play
+            button.next.tiny Next
+            button.repeat Repeat
+            #time
+          .row
+            .small-12.columns
+               #seekbar.seek-bar
+                  #playbar.play-bar
+          .row
+            .small-12.columns
+                button.archer.tiny Archer
+                button.million.tiny Million
       #nav
         .row
           .small-9.columns
@@ -126,10 +141,16 @@ html(class='no-js', lang='en')
                           td.td All Up
                           td.td Prince
                           td.td In Yo Data
-
+        .row
+          .small-12.columns
+            #jquery_jplayer_1.jp-jplayer
+              #jp_container_1.jp-audio
 
         script(src='/js/vendor/jquery.js')
         script(src='/js/vendor/foundation.js')
         script(src='/js/vendor/lodash.js')
         script(src='/js/vendor/moment.js')
+        script(src='/js/vendor/jquery.jplayer.min.js')
+        script(src='/js/vendor/drag.js')
         script(src='/js/source/main.js')
+        script(src='/js/source/playerApp.js')
